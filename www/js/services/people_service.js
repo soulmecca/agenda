@@ -1,5 +1,5 @@
 angular
-  .module('app')
+  .module('app', [])
   .service("peopleService",function($window, $http){
 
     this.create = function(name, phone) {
@@ -18,4 +18,4 @@ angular
       });
     };
 
-}
+})

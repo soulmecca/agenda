@@ -2,7 +2,7 @@
 	var app = angular.module('peopleController', []);
 
 
-	app.controller('PeopleController', function ($scope, $http, $ionicPopup) {
+	app.controller('PeopleController', function ($scope, $http, $ionicPopup, peopleService) {
 		var url = 'http://localhost:3000/api/people';
 
 		$http.get(url)
@@ -17,9 +17,16 @@
 			
 			if($scope.new.name && $scope.new.phone){
 				console.log($scope.new.name, $scope.new.phone)
-				$http.post
-			}
-		}
+				var res = peopleService.create($scope.new.name, $scope.new.phone)
+				res.success(function(data){
+  				$scope.people = data;
+  				})
+  			}
+  		}
+	// 			$http.post(url, { name: $scope.new.name, phone: $scope.new.phone }).then(function(resp) { 
+	// return resp
+ //      });
+			
 
 		$scope.showConfirm = function(person) {
 			var confirmPopup = $ionicPopup.confirm({
@@ -37,10 +44,10 @@
 		};		
 
 		$scope.edit = function () {
-			// $http.g
+
 
 		}		
 
 	}) // controller
 
-})();
+})()

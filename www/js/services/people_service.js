@@ -8,6 +8,7 @@ angular
                 method: 'POST',
                 url: url,
                 headers: {
+                  'dataType': 'json', 
                   'Content-Type': 'application/json',
                   'Accept': 'application/json'
                 },

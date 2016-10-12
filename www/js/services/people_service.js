@@ -1,21 +1,24 @@
 angular
   .module('app', [])
-  .service("peopleService",function($window, $http){
+  .service("peopleService",function($window, $http, $q){
+    var ctrl = this
 
-    this.create = function(name, phone) {
+    ctrl.create = function(name, phone) {
+      var qCreate = $q.defer();
+
       var url = "http://localhost:3000/api/people";
-      return $http({
-                method: 'POST',
-                url: url,
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/json'
-                },
-                data: {
-                  name: name,
-                  phone: phone
-                }
-      });
-    };
+
+      $http.post(url, {name: name, phone: phone})
+        .then(function(res){
+          console.log(res)
+          qCreate.resolve('success')
+        }, function (error) {
+          console.log(error)
+          qCreate.reject()
+        })
+      return qCreate.promise;
+    } // this.create
+
+    return ctrl
 
 })

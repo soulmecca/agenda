@@ -37,7 +37,7 @@
 		};		
 
 		$scope.edit = function () {
-			console.log('do it !!!')
+			// $http.g
 
 		}		
 

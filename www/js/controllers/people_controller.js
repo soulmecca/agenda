@@ -3,26 +3,35 @@
 
 
 	app.controller('PeopleController', function ($scope, $http, $ionicPopup, peopleService) {
-		var url = 'http://localhost:3000/api/people';
-		$scope.people = [];
-		$http.get(url)
-			.success(function (people) {
-				$scope.people = people;
-			})
-			.error(function () {
-				console.log('server side error occuerred.')
-			})
-		
+
+		function getPhoneData () {
+			var url = 'http://localhost:3000/api/people';
+
+			$http.get(url)
+				.success(function (people) {
+					$scope.people = people;
+				})
+				.error(function () {
+					console.log('server side error occuerred.')
+				})			
+		}
+
+		getPhoneData();
+
 		$scope.register = function () {
 			
 			if($scope.new.name && $scope.new.phone){
 				console.log($scope.new.name, $scope.new.phone)
-				var res = peopleService.create($scope.new.name, $scope.new.phone)
-					res.success(function(data){
-  					$scope.people.push(data);
-  				})
-  			}
-  		}
+
+				peopleService.create($scope.new.name, $scope.new.phone).then(function (success) {
+					getPhoneData();
+				}, function (error) {
+					console.log(error)
+				})
+
+  			} //if
+  		} // $scope.register
+
 	// 			$http.post(url, { name: $scope.new.name, phone: $scope.new.phone }).then(function(resp) { 
 	// return resp
  //      });

@@ -58,7 +58,21 @@
 			});
 		};		
 
-		$scope.edit = function () {
+		$scope.delete = function (person) {
+			var confirmPopup = $ionicPopup.confirm({
+			title: 'Confirm information',
+			template: 'Are you sure you want to delete?'
+			});
+			confirmPopup.then(function(res) {
+			if(res) {
+				peopleService.delete(person.id).then(function (success) {
+					getPhoneData();
+				} )
+			 // console.log('All info is correct ?');
+			} else {
+			 // console.log('Cancle');
+			}
+			});
 
 
 		}		

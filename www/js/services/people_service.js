@@ -7,8 +7,6 @@ angular
     ctrl.create = function(name, phone) {
       var qCreate = $q.defer();
 
-      
-
       $http.post(url, {name: name, phone: phone})
         .then(function(res){
           console.log(res)
@@ -32,6 +30,19 @@ angular
           qUpdate.reject()
         })
         return qUpdate.promise;
+    }
+
+    ctrl.delete = function(id) {
+      var qDelete = $q.defer();
+      return $http.delete(url + id)
+        .then(function(res){
+          console.log(res)
+          qDelete.resolve('seccess')
+        }, function(error) {
+          console.log(error)
+          qDelete.reject();
+        })
+        return qDelete.promise;
     }
 
     return ctrl

@@ -1,8 +1,6 @@
 (function() {
-	var app = angular.module('peopleController', []);
-
-
-	app.controller('PeopleController', function ($scope, $http, $ionicPopup, peopleService) {
+	angular.module('peopleController', [])
+	.controller('PeopleController', function ($scope, $http, $ionicPopup, peopleService) {
 
 
 		function getPhoneData () {
@@ -21,7 +19,6 @@
 		getPhoneData();
 
 
-	
 		$scope.register = function () {
 			
 			if($scope.new.name && $scope.new.phone){
@@ -41,7 +38,7 @@
  //      });
 			
 
-		$scope.showConfirm = function(person) {
+		$scope.edit = function(person) {
 			var confirmPopup = $ionicPopup.confirm({
 			title: 'Confirm information',
 			template: 'name is ' + person.name + ' phone is ' + person.phone
@@ -51,7 +48,7 @@
 				peopleService.update(person).then(function (success) {
 					getPhoneData();
 				} )
-			 // console.log('All info is correct ?');
+			 console.log('All info is correct ?');
 			} else {
 			 // console.log('Cancle');
 			}

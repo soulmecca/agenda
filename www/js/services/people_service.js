@@ -13,15 +13,14 @@ angular
           qCreate.resolve('success')
         }, function (error) {
           console.log(error)
-          qCreate.reject()
+          qCreate.reject(error)
         })
       return qCreate.promise;
     } // this.create
 
     ctrl.update = function(data) {
       var qUpdate = $q.defer();
-
-      $http.patch(url + data.id, data)
+      $http.put(url + data.id, data)
         .then(function(res){
           console.log(res)
           qUpdate.resolve('success')
@@ -29,12 +28,13 @@ angular
           console.log(error)
           qUpdate.reject()
         })
+
         return qUpdate.promise;
     }
 
     ctrl.delete = function(id) {
       var qDelete = $q.defer();
-      return $http.delete(url + id)
+      $http.delete(url + id)
         .then(function(res){
           console.log(res)
           qDelete.resolve('seccess')
